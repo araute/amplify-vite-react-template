@@ -4,7 +4,7 @@ backend:
     build:
       commands:
         - npm ci --cache .npm --prefer-offline
-        - npx ampx generate outputs --branch main --app-id d3oa5btxad2vln
+        - npx ampx generate outputs --branch master --app-id d3oa5btxad2vln
 frontend:
   phases:
     build:

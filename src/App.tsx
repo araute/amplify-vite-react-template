@@ -1,12 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { Schema } from "../amplify/data/resource";
 import { useAuthenticator } from "@aws-amplify/ui-react";
-import { generateClient } from "aws-amplify/data";
 import { Container, Navbar, Nav } from "react-bootstrap";
 import { Link, Route, Routes } from "react-router-dom";
 import StoreProductsPage from "./StoreProducts.tsx";
-
-const client = generateClient<Schema>();
+import StoreOrders from "./StoreOrders.tsx";
 
 function deleteTodo(id: string) {
   client.models.Todo.delete({ id });
@@ -41,7 +39,9 @@ const App = () => {
           <Navbar.Toggle aria-controls="main-navbar-nav" />
           <Navbar.Collapse id="main-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="#home">Orders</Nav.Link>
+              <Nav.Link as={Link} to="/store-orders">
+                Orders
+              </Nav.Link>
               <Nav.Link as={Link} to="/store-products">
                 Store Products
               </Nav.Link>
@@ -52,7 +52,7 @@ const App = () => {
       </Navbar>
       <Container style={{ marginTop: "2rem" }}>
         <Routes>
-          <Route path="/orders" element={<div>Orders Page</div>} />
+          <Route path="/store-orders" element={<StoreOrders />} />
           <Route path="/store-products" element={<StoreProductsPage />} />
           <Route path="/pending" element={<div>Pending Page</div>} />
           <Route path="/" element={<div>Home</div>} />
@@ -60,21 +60,6 @@ const App = () => {
       </Container>
       <main>
         <h1>{user?.signInDetails?.loginId}'s todos</h1>
-        <button onClick={createTodo}>+ new</button>
-        <ul>
-          {products.map((product) => (
-            <li onClick={() => deleteTodo(product.id)} key={product.id}>
-              {product.name}
-            </li>
-          ))}
-        </ul>
-        <div>
-          🥳 App successfully hosted. Try creating a new todo.
-          <br />
-          <a href="https://docs.amplify.aws/react/start/quickstart/#make-frontend-updates">
-            Review next step of this tutorial.
-          </a>
-        </div>
         <button onClick={signOut}>Sign out</button>
       </main>
     </>

@@ -3,9 +3,8 @@ import { generateClient } from "aws-amplify/data";
 import type { Schema } from "../amplify/data/resource";
 import { StoreProductWithDetails } from "./types/StoreProductWithDetails.ts";
 
-const client = generateClient<Schema>();
-
 export default function StoreProductsPage() {
+  const client = generateClient<Schema>();
   const storeId = "5e434070-68e4-43e5-a609-fcedeebcc3a3"; // <-- /store-products/:storeId
   const [storeProducts, setStoreProducts] = useState<StoreProductWithDetails[]>(
     [],
